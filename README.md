@@ -78,17 +78,12 @@ var sortable = new Sortable(el, {
 		dataTransfer.setData('Text', dragEl.textContent);
 	},
 
-	// Element is chosen
-	onChoose: function (/**Event*/evt) {
-		evt.oldIndex;  // element index within parent
-	},
-
-	// Element dragging started
+	// dragging started
 	onStart: function (/**Event*/evt) {
 		evt.oldIndex;  // element index within parent
 	},
 	
-	// Element dragging ended
+	// dragging ended
 	onEnd: function (/**Event*/evt) {
 		evt.oldIndex;  // element's old index within parent
 		evt.newIndex;  // element's new index within parent
@@ -386,8 +381,8 @@ var SortableList = React.createClass({
 
 	render: function() {
 		return <ul>{
-			this.state.items.map(function (text) {
-				return <li>{text}</li>
+			this.state.items.map(function (text, i) {
+				return <li ref={i}>{text}</li>
 			})
 		}</ul>
 	}
@@ -409,17 +404,18 @@ var AllUsers = React.createClass({
 	},
 
 	getInitialState: function() {
-		return { users: ['Abbi', 'Adela', 'Bud', 'Cate', 'Davis', 'Eric']; };
+		return { users: ['Abbi', 'Adela', 'Bud', 'Cate', 'Davis', 'Eric'] };
 	},
 
 	render: function() {
-		return (
-			<h1>Users</h1>
-			<ul ref="user">{
-				this.state.users.map(function (text) {
-					return <li>{text}</li>
-				})
-			}</ul>
+		return (<div>
+				<h1>Users</h1>
+				<ul ref="user">{
+					this.state.users.map(function (text, i) {
+						return <li ref={i}>{text}</li>
+					})
+				}</ul>
+			</div>
 		);
 	}
 });
@@ -429,13 +425,13 @@ var ApprovedUsers = React.createClass({
 	sortableOptions: { group: "shared" },
 
 	getInitialState: function() {
-		return { items: ['Hal', 'Judy']; };
+		return { items: ['Hal', 'Judy'] };
 	},
 
 	render: function() {
 		return <ul>{
-			this.state.items.map(function (text) {
-				return <li>{text}</li>
+			this.state.items.map(function (text, i) {
+				return <li ref={i}>{text}</li>
 			})
 		}</ul>
 	}
@@ -640,11 +636,11 @@ Link to the active instance.
 
 ```html
 <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.0-rc1/Sortable.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.3.0-rc1/Sortable.min.js"></script>
 
 
 <!-- jsDelivr :: Sortable (http://www.jsdelivr.com/) -->
-<script src="//cdn.jsdelivr.net/sortable/1.4.0-rc1/Sortable.min.js"></script>
+<script src="//cdn.jsdelivr.net/sortable/1.3.0-rc1/Sortable.min.js"></script>
 
 
 <!-- jsDelivr :: Sortable :: Latest (http://www.jsdelivr.com/) -->
@@ -715,4 +711,3 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
