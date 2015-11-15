@@ -656,13 +656,12 @@
 
 
 					var targetRect = target.getBoundingClientRect(),
-						width = targetRect.right - targetRect.left,
-						height = targetRect.bottom - targetRect.top,
 						floating = /left|right|inline/.test(lastCSS.cssFloat + lastCSS.display)
 							|| (lastParentCSS.display == 'flex' && lastParentCSS['flex-direction'].indexOf('row') === 0),
 						isWide = (target.offsetWidth > dragEl.offsetWidth),
 						isLong = (target.offsetHeight > dragEl.offsetHeight),
-						halfway = (floating ? (evt.clientX - targetRect.left) / width : (evt.clientY - targetRect.top) / height) > 0.5,
+						halfway = floating ? evt.clientX - targetRect.left > Math.max(targetRect.width-dragRect.width, 0)/2 : 
+								evt.clientY - targetRect.top > Math.max(targetRect.height-dragRect.height, 0)/2;
 						nextSibling = target.nextElementSibling,
 						moveVector = _onMove(rootEl, el, dragEl, dragRect, target, targetRect),
 						after
